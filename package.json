@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "A modular GPT-based dev council that can trigger n8n workflows and connect via OpenAPI",
-  "main": "server.ts",
+  "main": "server.js",
   "scripts": {
     "setup": "node setup.js",
     "start": "node dist/server.js",
