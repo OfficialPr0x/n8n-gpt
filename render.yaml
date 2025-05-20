@@ -7,4 +7,17 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: X_N8N_API_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNWJjZjZlMS0wOTBmLTQ3OGMtODZmMC0wNDA3Mjc4MjdlNGQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzQ3NzA0MDM0LCJleHAiOjE3NTAyODQwMDB9.xZxQ_42Q_ON2gvFXnNN0SG3iDzvgOaQjZzCdgjZ_isQ
+        sync: false
+      - key: N8N_BASE_URL
+        value: https://nest.myghostrep.com/api
+      - key: PORT
+        value: 3000
     healthCheckPath: /api/health
+    plan: starter
+    autoDeploy: true
+    disk:
+      name: n8n-gpt-data
+      mountPath: /opt/render/project/src/vfs
+      sizeGB: 1

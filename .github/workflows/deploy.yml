@@ -11,16 +11,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm install
-      - run: npm run build
-      - run: npx ts-node server.ts &
+      - run: npm run render-build
+      - run: npm start
       - run: sleep 5 # Give server time to start
-      - name: Health check
-        run: curl --fail http://localhost:3001/api/health || exit 1
-      
-      # Deploy to your hosting provider here
-      # Example for Railway:
-      # - uses: railwayapp/railway-github-action@master
-      #   with:
-      #     railway_token: ${{ secrets.RAILWAY_TOKEN }}
-      #     command: deploy 
+      - name: Deploy to Render
+        uses: render-io/render-action@v1
+        with:
+          render_token: ${{ secrets.RENDER_TOKEN }}
+          deploy_hook_url: https://api.render.com/deploy/srv-d0ltj315pdvs738mosog?key=Ll4jcmwua6k
+          command: deploy
