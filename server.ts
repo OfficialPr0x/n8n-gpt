@@ -25,11 +25,11 @@ dirs.forEach(dir => {
 });
 
 // Import routes
-import n8nTriggerRouter from './api/n8n/trigger';
-import filesSaveRouter from './api/files/save';
-import filesTreeRouter from './api/files/tree';
-import filesContentRouter from './api/files/content';
-import gptGenerateRouter from './api/gpt/generate';
+import n8nTriggerRouter from './api/n8n/trigger.js';
+import filesSaveRouter from './api/files/save.js';
+import filesTreeRouter from './api/files/tree.js';
+import filesContentRouter from './api/files/content.js';
+import gptGenerateRouter from './api/gpt/generate.js';
 
 // Use routes
 app.use(n8nTriggerRouter);
@@ -53,4 +53,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`OpenAPI spec available at: http://localhost:${PORT}/openapi.yaml`);
   console.log(`API docs available at: http://localhost:${PORT}`);
-}); 
+});
