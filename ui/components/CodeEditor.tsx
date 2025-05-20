@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useLogStore from '../stores/LogStore';
+import { useLogStore } from '../store/logStore';
 
 interface CodeEditorProps {
   value: string;
@@ -34,9 +34,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       e.preventDefault();
       onSave();
       addLog({
-        agent: 'System',
+        agent: 'system',
         message: 'File saved via keyboard shortcut',
-        type: 'info'
+        type: 'info',
+        timestamp: new Date().toISOString()
       });
     }
 
@@ -106,4 +107,4 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   );
 };
 
-export default CodeEditor; 
+export default CodeEditor;
