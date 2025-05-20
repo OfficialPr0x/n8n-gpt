@@ -1,0 +1,197 @@
+openapi: 3.1.0
+info:
+  title: GPT-n8n Workflow API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Development server
+paths:
+  /api/n8n/trigger:
+    post:
+      operationId: triggerWorkflow
+      summary: Triggers an n8n workflow with input
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workflowId:
+                  type: string
+                input:
+                  type: object
+              required:
+                - workflowId
+                - input
+      responses:
+        '200':
+          description: Workflow triggered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      summary:
+                        type: string
+                      workflowId:
+                        type: string
+                      executionData:
+                        type: object
+                      repoUrl:
+                        type: string
+                      deployedUrl:
+                        type: string
+                  log:
+                    type: object
+                  timestamp:
+                    type: string
+  /api/files/save:
+    post:
+      operationId: saveFile
+      summary: Save a file to the virtual file system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                path:
+                  type: string
+                content:
+                  type: string
+              required:
+                - path
+                - content
+      responses:
+        '200':
+          description: File saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  path:
+                    type: string
+  /api/files/tree:
+    get:
+      operationId: getFileTree
+      summary: Get the virtual file system tree
+      responses:
+        '200':
+          description: File tree retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  tree:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        path:
+                          type: string
+                        type:
+                          type: string
+                          enum: [file, directory]
+                        size:
+                          type: number
+                        children:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/FileNode'
+  /api/files/content:
+    get:
+      operationId: getFileContent
+      summary: Get content of a file from the virtual file system
+      parameters:
+        - name: path
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Path to the file
+      responses:
+        '200':
+          description: File content retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  path:
+                    type: string
+                  content:
+                    type: string
+                  fileType:
+                    type: string
+                  size:
+                    type: number
+                  lastModified:
+                    type: string
+  /api/gpt/generate:
+    post:
+      operationId: generateCode
+      summary: Generate code using GPT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                context:
+                  type: object
+              required:
+                - prompt
+      responses:
+        '200':
+          description: Code generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  code:
+                    type: string
+                  prompt:
+                    type: string
+                  timestamp:
+                    type: string
+components:
+  schemas:
+    FileNode:
+      type: object
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        type:
+          type: string
+          enum: [file, directory]
+        size:
+          type: number
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileNode' 

@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "DevSystem Trigger",
+  "name_for_model": "devsystem_trigger",
+  "description_for_human": "Trigger n8n workflows from GPT.",
+  "description_for_model": "Use this API to run automation workflows via n8n, save files, and generate code.",
+  "auth": { "type": "none" },
+  "api": {
+    "type": "openapi",
+    "url": "${HOST_URL}/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "${HOST_URL}/logo.png",
+  "contact_email": "you@domain.com",
+  "legal_info_url": "${HOST_URL}/legal"
+} 

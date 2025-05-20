@@ -1,0 +1,31 @@
+# Legal Information
+
+## Terms of Service
+
+This GPT-n8n Integration ("Service") is provided as-is without any warranties, expressed or implied. By using this Service, you agree to these terms.
+
+### Usage Restrictions
+
+You may use this Service for lawful purposes only. You are responsible for all activities conducted through the Service.
+
+### Data and Privacy
+
+This Service processes data as described in the API documentation. No personal data is stored by the Service unless explicitly saved by the user.
+
+### Limitation of Liability
+
+The providers of this Service shall not be liable for any direct, indirect, incidental, special, consequential, or exemplary damages resulting from your use of the Service.
+
+### Third-Party Services
+
+This Service integrates with n8n and may connect to other third-party services. Usage of those services is subject to their respective terms and conditions.
+
+## Privacy Policy
+
+This Service does not collect personal information beyond what is necessary for its functioning. Any data processed is handled according to applicable data protection laws.
+
+### Contact
+
+For any questions regarding these terms, please contact the maintainers of this repository.
+
+Last updated: 2023 

@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "n8n DevSystem",
+  "name_for_model": "devsystem_trigger",
+  "description_for_human": "Connect to n8n workflows for development operations and access project files.",
+  "description_for_model": "This plugin allows you to trigger n8n workflows for development operations such as code generation, git operations, deployment, and more. You can also access and manipulate project files in a virtual file system.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:3000/openapi.yaml"
+  },
+  "logo_url": "http://localhost:3000/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "http://localhost:3000/legal"
+} 
