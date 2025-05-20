@@ -15,7 +15,7 @@ const hostUrl = process.argv[2];
 
 if (!hostUrl) {
   console.error('Please provide a host URL as an argument');
-  console.error('Example: node update-plugin-url.js https://your-host-url.com');
+  console.error('Example: node update-plugin-url.js https://gpt.myghostrep.com');
   process.exit(1);
 }
 

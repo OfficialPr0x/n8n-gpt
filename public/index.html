@@ -51,13 +51,39 @@
           <pre id="workflow-result" class="mt-2 bg-gray-900 p-3 rounded hidden overflow-auto max-h-60"></pre>
         </div>
         
-        <div>
+        <div class="mb-6">
           <h3 class="font-bold text-lg mb-2">Generate Code</h3>
           <textarea id="code-prompt" placeholder="Enter prompt for code generation" class="bg-gray-700 rounded px-3 py-2 text-white w-full" rows="3"></textarea>
           <button id="generate-code" class="mt-2 bg-green-600 hover:bg-green-500 px-4 py-2 rounded">
             Generate Code
           </button>
           <pre id="code-result" class="mt-2 bg-gray-900 p-3 rounded hidden overflow-auto max-h-60"></pre>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="font-bold text-lg mb-2">File System Operations</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+            <div>
+              <button id="get-file-tree" class="w-full bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded">
+                Get File Tree
+              </button>
+            </div>
+            <div>
+              <input id="file-path" placeholder="File path (e.g., test.txt)" class="bg-gray-700 rounded px-3 py-2 text-white w-full" />
+            </div>
+          </div>
+          <div class="mb-2">
+            <textarea id="file-content" placeholder="File content to save" class="bg-gray-700 rounded px-3 py-2 text-white w-full" rows="3"></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <button id="get-file" class="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded">
+              Get File Content
+            </button>
+            <button id="save-file" class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded">
+              Save File
+            </button>
+          </div>
+          <pre id="file-result" class="mt-2 bg-gray-900 p-3 rounded hidden overflow-auto max-h-60"></pre>
         </div>
       </section>
     </main>
@@ -155,6 +181,79 @@
         resultElement.textContent = `Error: ${error.message}`;
       }
     });
+
+    // Get file tree
+    document.getElementById('get-file-tree').addEventListener('click', async () => {
+      const resultElement = document.getElementById('file-result');
+      
+      resultElement.textContent = 'Loading file tree...';
+      resultElement.classList.remove('hidden');
+      
+      try {
+        const response = await fetch('/api/files/tree');
+        const data = await response.json();
+        resultElement.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        resultElement.textContent = `Error: ${error.message}`;
+      }
+    });
+
+    // Get file content
+    document.getElementById('get-file').addEventListener('click', async () => {
+      const filePath = document.getElementById('file-path').value;
+      const resultElement = document.getElementById('file-result');
+      const contentElement = document.getElementById('file-content');
+      
+      if (!filePath) {
+        alert('Please enter a file path');
+        return;
+      }
+      
+      resultElement.textContent = 'Loading file content...';
+      resultElement.classList.remove('hidden');
+      
+      try {
+        const response = await fetch(`/api/files/content?path=${encodeURIComponent(filePath)}`);
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          contentElement.value = data.content;
+          resultElement.textContent = `File loaded successfully: ${filePath}`;
+        } else {
+          resultElement.textContent = JSON.stringify(data, null, 2);
+        }
+      } catch (error) {
+        resultElement.textContent = `Error: ${error.message}`;
+      }
+    });
+
+    // Save file
+    document.getElementById('save-file').addEventListener('click', async () => {
+      const filePath = document.getElementById('file-path').value;
+      const content = document.getElementById('file-content').value;
+      const resultElement = document.getElementById('file-result');
+      
+      if (!filePath) {
+        alert('Please enter a file path');
+        return;
+      }
+      
+      resultElement.textContent = 'Saving file...';
+      resultElement.classList.remove('hidden');
+      
+      try {
+        const response = await fetch('/api/files/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ path: filePath, content })
+        });
+        
+        const data = await response.json();
+        resultElement.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        resultElement.textContent = `Error: ${error.message}`;
+      }
+    });
   </script>
 </body>
-</html> 
+</html>
